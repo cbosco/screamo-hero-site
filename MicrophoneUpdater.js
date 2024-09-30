@@ -1,6 +1,6 @@
-var r = Object.defineProperty;
-var o = (i, t, e) => t in i ? r(i, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : i[t] = e;
-var s = (i, t, e) => o(i, typeof t != "symbol" ? t + "" : t, e);
+var o = Object.defineProperty;
+var r = (i, t, e) => t in i ? o(i, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : i[t] = e;
+var s = (i, t, e) => r(i, typeof t != "symbol" ? t + "" : t, e);
 class h {
   constructor(t, e, a = 1, n = 100) {
     s(this, "microphoneManager");
@@ -22,7 +22,7 @@ class h {
   }
   // Stop the update loop
   stop() {
-    clearInterval(this.activeIntervalId);
+    clearInterval(this.activeIntervalId), this.activeIntervalId = void 0, this.microphoneManager.stopListening();
   }
   decreaseSensitivity() {
     this.sensitivityFactor -= 0.1, this.sensitivityFactor < 0.3 && (this.sensitivityFactor = 0.3);

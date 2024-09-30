@@ -1,4 +1,4 @@
-import { Button as o } from "./Button.js";
+import { Button as s } from "./Button.js";
 import { Game as c } from "./game/Game.js";
 import { CanvasManager as d } from "./CanvasManager.js";
 import { CanvasUpdater as v } from "./CanvasUpdater.js";
@@ -11,22 +11,22 @@ i !== null && (i.innerHTML = `
     <canvas id="myCanvas">
   </div>
 `);
-const e = new EventTarget(), p = 3e3, a = new d("myCanvas", e, p), t = new c(e, p), w = new o("Pause", () => t.pause()), E = new o("sensitivity-", () => s.decreaseSensitivity()), h = new o("sensitivity+", () => s.increaseSensitivity()), n = document.getElementById("app");
-if (!n)
+const t = new EventTarget(), p = 3e3, r = new d("myCanvas", t, p), n = new c(t, p), w = new s("Pause", () => n.pause()), E = new s("sensitivity-", () => e.decreaseSensitivity()), h = new s("sensitivity+", () => e.increaseSensitivity()), a = document.getElementById("app");
+if (!a)
   throw new Error("App surface not in DOM.");
-n.appendChild(w.getElement());
-n.appendChild(E.getElement());
-n.appendChild(h.getElement());
-const r = new v(a, t);
-e.addEventListener(l, () => {
+a.appendChild(w.getElement());
+a.appendChild(E.getElement());
+a.appendChild(h.getElement());
+const o = new v(r, n);
+t.addEventListener(l, () => {
   alert("YOU WIN!"), m();
 });
-e.addEventListener(u, () => {
+t.addEventListener(u, () => {
   alert("YOU DIED!"), m();
 });
-r.start();
-const y = new f(), s = new g(y, t);
-s.start();
+o.start();
+const y = new f(), e = new g(y, n);
+e.start();
 function m() {
-  r.stop(), t.reset(), a.clear(), a.resetOffset(), r.start();
+  o.stop(), n.reset(), r.clear(), r.resetOffset(), o.start(), e.stop(), e.start();
 }
