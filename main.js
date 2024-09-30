@@ -1,28 +1,32 @@
-import { Button as i } from "./Button.js";
-import { Game as m } from "./game/Game.js";
-import { CanvasManager as c } from "./CanvasManager.js";
-import { CanvasUpdater as d } from "./CanvasUpdater.js";
-import { BOARD_END as v, GROUND_HIT as l } from "./game/events.js";
+import { Button as o } from "./Button.js";
+import { Game as c } from "./game/Game.js";
+import { CanvasManager as d } from "./CanvasManager.js";
+import { CanvasUpdater as v } from "./CanvasUpdater.js";
+import { BOARD_END as l, GROUND_HIT as u } from "./game/events.js";
 import { MicrophoneManager as f } from "./MicrophoneManager.js";
 import { MicrophoneUpdater as g } from "./MicrophoneUpdater.js";
-const p = document.querySelector("#app");
-p !== null && (p.innerHTML = `
+const i = document.querySelector("#app");
+i !== null && (i.innerHTML = `
   <div id="app">
     <canvas id="myCanvas">
   </div>
 `);
-const n = new EventTarget(), o = 3e3, t = new c("myCanvas", n, o), e = new m(n, o), u = new i("Pause", () => e.pause()), w = new i("Move right", () => e.updatePosition({ x: 5, y: 0 })), a = document.getElementById("app");
-if (!a)
+const e = new EventTarget(), p = 3e3, a = new d("myCanvas", e, p), t = new c(e, p), w = new o("Pause", () => t.pause()), E = new o("sensitivity-", () => s.decreaseSensitivity()), h = new o("sensitivity+", () => s.increaseSensitivity()), n = document.getElementById("app");
+if (!n)
   throw new Error("App surface not in DOM.");
-a.appendChild(u.getElement());
-a.appendChild(w.getElement());
-const r = new d(t, e);
-n.addEventListener(v, () => {
-  r.stop(), alert("YOU WIN!"), e.reset(), t.clear(), t.offset({ x: o, y: 0 }), s.stopListening();
+n.appendChild(w.getElement());
+n.appendChild(E.getElement());
+n.appendChild(h.getElement());
+const r = new v(a, t);
+e.addEventListener(l, () => {
+  alert("YOU WIN!"), m();
 });
-n.addEventListener(l, () => {
-  r.stop(), alert("YOU DIED!"), e.reset(), t.clear(), t.offset({ x: o, y: 0 }), s.stopListening();
+e.addEventListener(u, () => {
+  alert("YOU DIED!"), m();
 });
 r.start();
-const s = new f(), h = new g(s, e);
-h.start();
+const y = new f(), s = new g(y, t);
+s.start();
+function m() {
+  r.stop(), t.reset(), a.clear(), a.resetOffset(), r.start();
+}

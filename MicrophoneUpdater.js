@@ -1,20 +1,21 @@
-var n = Object.defineProperty;
-var o = (e, t, a) => t in e ? n(e, t, { enumerable: !0, configurable: !0, writable: !0, value: a }) : e[t] = a;
-var s = (e, t, a) => o(e, typeof t != "symbol" ? t + "" : t, a);
-class c {
-  constructor(t, a, i = 100) {
+var r = Object.defineProperty;
+var o = (i, t, e) => t in i ? r(i, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : i[t] = e;
+var s = (i, t, e) => o(i, typeof t != "symbol" ? t + "" : t, e);
+class h {
+  constructor(t, e, a = 1, n = 100) {
     s(this, "microphoneManager");
     s(this, "game");
     s(this, "updateRateMs");
     s(this, "activeIntervalId");
-    this.microphoneManager = t, this.game = a, this.updateRateMs = i, this.activeIntervalId = void 0;
+    s(this, "sensitivityFactor");
+    this.microphoneManager = t, this.game = e, this.updateRateMs = n, this.activeIntervalId = void 0, this.sensitivityFactor = a;
   }
   // Start the update loop
   start() {
     this.activeIntervalId === void 0 && (this.microphoneManager.startListening(), this.activeIntervalId = setInterval(() => {
       const t = this.microphoneManager.getLoudness();
       t > 0.04 && (console.log("Loudness:", t), this.game.updatePosition({
-        x: 560 * t,
+        x: this.sensitivityFactor * 560 * t,
         y: this.getVerticalVelocity(t)
       }));
     }, this.updateRateMs));
@@ -23,10 +24,16 @@ class c {
   stop() {
     clearInterval(this.activeIntervalId);
   }
+  decreaseSensitivity() {
+    this.sensitivityFactor -= 0.1, this.sensitivityFactor < 0.3 && (this.sensitivityFactor = 0.3);
+  }
+  increaseSensitivity() {
+    this.sensitivityFactor += 0.3;
+  }
   getVerticalVelocity(t) {
-    return 560 * t * 0.6;
+    return this.sensitivityFactor * 560 * t * 0.6;
   }
 }
 export {
-  c as MicrophoneUpdater
+  h as MicrophoneUpdater
 };
